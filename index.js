@@ -20,88 +20,100 @@ var questionsArr = [
             'Martin Scorcese',
             'Quentin Tarantino',
         ]
+    }, {
+        question: 'Who is the creator of the Mona Lisa?',
+        answer: 'Leonardo DaVinci',
+        options: [
+            'Vincent VanGogh',
+            'Leonardo DaVinci',
+            'Sandro Botticelli',
+            'Michelangelo de Ludovici'
+        ]
+    },
+    {
+        question: 'How many emperors ruled the Roman Empire?',
+        answer: '71',
+        options: [
+            '56',
+            '12',
+            '32',
+            '71',
+        ]
+
     }
 ]
 
-var score = 0;
-var timer;
+var correct = 0;
+var timeLeft = 30;
 var total = questionsArr.length;
 var currentQuestion = 0;
 var timerId
+var i = 0
+
 
 //  create start quiz button
+// on page load, display start quiz button (id user has never played game before)
+//call #start-quiz id to start, identified in variables
 var quizButton = document.querySelector('button');
 quizButton.setAttribute('id', 'start-quiz');
 var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
 
-/*  create timer 
-function startTimer() {
-    var timerId = setInterval(function () {
-        var time = Number(timer.textContent)
-        if (time > 0) {
-            timer.textContent = time - 1
-        } else {
-            stopTimer()
-        }
-    }, 1000);
-}
-*/
 
-function stopTimer() {
-    clearInterval(timerId)
-    countEl.textContent = ""
-}
-
-// create quiz for each time user clicks a button, regardless of right or wrong answer 
-quizButton.onclick = function quizGenerate() {
+// erase button and then generate the quiz values
+quizButton.onclick = function eraseButton(e) {
     quizGame.removeChild(quizButton);
-
+    quizGenerate();
+}
+//function for generating the quiz values and accessing the DOM
+function quizGenerate() {
     for (var i = 0; i < questionsArr.length; i++) {
         // create other variables 
         /// create p element 
         var paragraph = document.createElement('p');
         quizGame.appendChild(paragraph);
+        paragraph.textContent = questionsArr[i].question
         //create div to contain answer buttons
         var containerDiv = document.createElement('div');
         quizGame.appendChild(containerDiv);
 
-        //create 4 buttons for each div
         var answerButton1 = document.createElement('button');
         var answerButton2 = document.createElement('button');
         var answerButton3 = document.createElement('button');
         var answerButton4 = document.createElement('button');
 
-        containerDiv.appendChild(answerButton1);
-        containerDiv.appendChild(answerButton2);
-        containerDiv.appendChild(answerButton3);
-        containerDiv.appendChild(answerButton4);
+
+        containerDiv.appendChild(answerButton1)
+        containerDiv.appendChild(answerButton2)
+        containerDiv.appendChild(answerButton3)
+        containerDiv.appendChild(answerButton4)
 
 
-
-        //create answer buttons 
+        answerButton1.setAttribute('class', 'btn')
         answerButton1.textContent = questionsArr[i].options[0]
+
+        answerButton2.setAttribute('class', 'btn')
         answerButton2.textContent = questionsArr[i].options[1]
+
+        answerButton3.setAttribute('class', 'btn')
         answerButton3.textContent = questionsArr[i].options[2]
+
+        answerButton4.setAttribute('class', 'btn')
         answerButton4.textContent = questionsArr[i].options[3]
-        paragraph.textContent = questionsArr[i].question;
 
-        //start timer and calculate score 
-        var response = document.getElement('button'.textContent)
-            if (response == questionsArr[i].answer) {
-                score++
-            } else { }
+        var btn = document.getElementsByClassName('btn')
 
-        
+
+        if ((btn('clicked')) || timeLeft.value == 0) {
+            i++
+        } else { }
     }
-
-    var finalScore = 100 * (score / total);
-
-
 }
 
-// on page load, display start quiz button (id user has never played game before)
-//call #start-quiz id to start, identified in variables
+
+var finalScore = 100 * (correct / total);
+
+
 //create functions to input into quiz function for if/else statements (one for first page load,
 // other to display previous score)
 function firstLoading() {
@@ -118,4 +130,23 @@ function previousScore() {
 
 }
 
+// create timer 
+function startTimer() {
+    var timerId = setInterval(function () {
+        var time = Number(timer.textContent)
+        if (time > 0) {
+            timer.textContent = timeLeft - 1
+        } else {
+            stopTimer()
+        }
+    }, 30000);
+}
+
+//start timer and calculate score 
+
+
+function stopTimer() {
+    clearInterval(timerId)
+    countEl.textContent = ""
+}
 
