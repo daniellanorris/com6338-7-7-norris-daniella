@@ -39,7 +39,16 @@ var questionsArr = [
             '32',
             '71',
         ]
-
+    },
+    {
+        question: 'What is the planet closest to the sun?',
+        answer: 'Mercury',
+        options: [
+            'Venus',
+            'Neptune',
+            'Mars',
+            'Mercury',
+        ]
     }
 ]
 
@@ -49,8 +58,6 @@ var total = questionsArr.length;
 var currentQuestion = 0;
 var timerId
 var i = 0
-
-
 //  create start quiz button
 // on page load, display start quiz button (id user has never played game before)
 //call #start-quiz id to start, identified in variables
@@ -60,55 +67,77 @@ var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
 
 
-// erase button and then generate the quiz values
-quizButton.onclick = function eraseButton(e) {
-    quizGame.removeChild(quizButton);
-    quizGenerate();
-}
 //function for generating the quiz values and accessing the DOM
 function quizGenerate() {
-    for (var i = 0; i < questionsArr.length; i++) {
-        // create other variables 
-        /// create p element 
-        var paragraph = document.createElement('p');
-        quizGame.appendChild(paragraph);
-        paragraph.textContent = questionsArr[i].question
-        //create div to contain answer buttons
-        var containerDiv = document.createElement('div');
-        quizGame.appendChild(containerDiv);
+    // create other variables 
+    /// create p element 
+    var paragraph = document.createElement('p');
+    quizGame.appendChild(paragraph);
+    paragraph.textContent = questionsArr[i].question
 
-        var answerButton1 = document.createElement('button');
-        var answerButton2 = document.createElement('button');
-        var answerButton3 = document.createElement('button');
-        var answerButton4 = document.createElement('button');
+    //create div to contain answer buttons
+    var containerDiv = document.createElement('div');
+    quizGame.appendChild(containerDiv);
+    
+    var paragraphNext = document.createElement('p')
+    quizGame.appendChild(paragraphNext)
 
-
-        containerDiv.appendChild(answerButton1)
-        containerDiv.appendChild(answerButton2)
-        containerDiv.appendChild(answerButton3)
-        containerDiv.appendChild(answerButton4)
-
-
-        answerButton1.setAttribute('class', 'btn')
-        answerButton1.textContent = questionsArr[i].options[0]
-
-        answerButton2.setAttribute('class', 'btn')
-        answerButton2.textContent = questionsArr[i].options[1]
-
-        answerButton3.setAttribute('class', 'btn')
-        answerButton3.textContent = questionsArr[i].options[2]
-
-        answerButton4.setAttribute('class', 'btn')
-        answerButton4.textContent = questionsArr[i].options[3]
-
-        var btn = document.getElementsByClassName('btn')
+    var timerId = setInterval(function () {
+        var timeLeft = Number(paragraphNext.textContent)
+        if (timeLeft > 0) {
+            paragraphNext.textContent = timeLeft - 1
+        } else {
+            clearInterval(timerId)
+            setTimeout(function () {
+            }, 1000)
+        }
+    }, 30000);
 
 
-        if ((btn('clicked')) || timeLeft.value == 0) {
-            i++
-        } else { }
-    }
+    var answerButton1 = document.createElement('button');
+    var answerButton2 = document.createElement('button');
+    var answerButton3 = document.createElement('button');
+    var answerButton4 = document.createElement('button');
+
+    containerDiv.appendChild(answerButton1)
+    containerDiv.appendChild(answerButton2)
+    containerDiv.appendChild(answerButton3)
+    containerDiv.appendChild(answerButton4)
+
+
+    answerButton1.setAttribute('class', 'btn')
+    answerButton1.textContent = questionsArr[i].options[0]
+
+    answerButton2.setAttribute('class', 'btn')
+    answerButton2.textContent = questionsArr[i].options[1]
+
+    answerButton3.setAttribute('class', 'btn')
+    answerButton3.textContent = questionsArr[i].options[2]
+
+    answerButton4.setAttribute('class', 'btn')
+    answerButton4.textContent = questionsArr[i].options[3]
 }
+// erase button and then generate the quiz values
+quizButton.onclick = function eraseButton() {
+    quizGame.removeChild(quizButton);
+    
+    quizGenerate();
+    for (var i = 0; i < questionsArr.length; i++) {
+        btnClicked = false;
+        const answerButton = document.querySelectorAll('.btn');
+        answerButton.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                if (btnClicked || timeLeft == 0) {
+                    i++
+                } btnClicked = true;
+            });
+        });
+        // create timer 
+
+
+    } i++
+}
+
 
 
 var finalScore = 100 * (correct / total);
@@ -117,36 +146,21 @@ var finalScore = 100 * (correct / total);
 //create functions to input into quiz function for if/else statements (one for first page load,
 // other to display previous score)
 function firstLoading() {
-    if (localStorage.getItem('finalScore') === false) {
-        //display the start button, and on button click you can start the quiz
+    if (localStorage.getItem('finalScore') === false) {//display the start button, and on button click you can start the quiz
         quizGenerate();
     }
+
 }
+firstLoading()
 
 function previousScore() {
     if (localStorage.getItem('finalScore') === true) {
+        paragraph.textContent = 'finalScore'
         //show previous score and display the start button
     }
 
 }
-
-// create timer 
-function startTimer() {
-    var timerId = setInterval(function () {
-        var time = Number(timer.textContent)
-        if (time > 0) {
-            timer.textContent = timeLeft - 1
-        } else {
-            stopTimer()
-        }
-    }, 30000);
-}
-
-//start timer and calculate score 
+previousScore()
 
 
-function stopTimer() {
-    clearInterval(timerId)
-    countEl.textContent = ""
-}
 
