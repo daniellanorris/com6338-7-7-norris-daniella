@@ -51,7 +51,7 @@ var questionsArr = [
         ]
     },
 
-    
+
     {
         question: 'Which of these famous TV characters starred in the TV show, "Breaking Bad"?',
         answer: 'Walter White',
@@ -67,8 +67,8 @@ var questionsArr = [
 var correct = 0;
 var timeLeft = 30;
 var total = questionsArr.length;
-var timerId
 var i = 0
+
 //  create start quiz button
 // on page load, display start quiz button (id user has never played game before)
 //call #start-quiz id to start, identified in variables
@@ -80,54 +80,6 @@ quizGame.appendChild(quizButton);
 
 //function for generating the quiz values and accessing the DOM
 function quizGenerate() {
-    // create other variables 
-    /// create p element 
-    var paragraph = document.createElement('p');
-    quizGame.appendChild(paragraph);
-    paragraph.textContent = questionsArr[i].question
-
-    //create div to contain answer buttons
-    var containerDiv = document.createElement('div');
-    quizGame.appendChild(containerDiv);
-    
-    var paragraphNext = document.createElement('p')
-    quizGame.appendChild(paragraphNext)
-
-    var timerId = setInterval(function () {
-        var timeLeft = Number(paragraphNext.textContent)
-        if (timeLeft > 0) {
-            paragraphNext.textContent = timeLeft - 1
-        } else {
-            clearInterval(timerId)
-            setTimeout(function () {
-            }, 1000)
-        }
-    }, 30000);
-}
-
-// erase button and then generate the quiz values
-quizButton.onclick = function eraseButton() {
-    quizGame.removeChild(quizButton);
-    quizGenerate();
-    for (var i = 0; i < questionsArr.length; i++) {
-        var btn = document.getElementsByClassName('btn');
-        for (var btn of btn) {
-            btn.addEventListener('click', function onClick() {
-                i++
-            });
-        }
-
-
-        /* if(onClick() == true || timeLeft == 0) {
-             i++
-         } */
-    }
-
-}
-
-//function for generating the quiz values and accessing the DOM
-function quizGenerate() {
-
     // create paragraph for question content
     var paragraph = document.createElement('p');
     quizGame.appendChild(paragraph);
@@ -163,6 +115,39 @@ function quizGenerate() {
     var timerId = document.createElement('p')
     quizGame.appendChild(timerId)
     timerId.textContent = timeLeft
+    var timerId = setInterval(function () {
+        var timeLeft = Number(timerId.textContent)
+        if (timeLeft > 0) {
+            timerId.textContent = timeLeft - 1
+        } else {
+            clearInterval(timerId)
+            setTimeout(function () {
+            }, 1000)
+        }
+    }, 30000);
+1
+}
+
+
+
+// erase button and then generate the quiz values
+quizButton.onclick = function eraseButton() {
+    quizGame.removeChild(quizButton);
+    quizGenerate()
+    for (var i = 0; i < questionsArr.length; i++) {
+        var btn = document.getElementsByClassName('btn');
+        for (var btn of btn) {
+            btn.addEventListener('click', function onClick() {
+                console.log('click')
+            });
+        }
+        if (btn.clicked == true || timeLeft == 0) {
+            console.log('done')
+            i++
+
+        } 
+    }
+
 }
 
 var finalScore = 100 * (correct / total);
