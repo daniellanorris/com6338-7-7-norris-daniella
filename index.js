@@ -49,13 +49,24 @@ var questionsArr = [
             'Mars',
             'Mercury',
         ]
-    }
+    },
+
+    
+    {
+        question: 'Which of these famous TV characters starred in the TV show, "Breaking Bad"?',
+        answer: 'Walter White',
+        options: [
+            'Walter White',
+            'Betty White',
+            'Tim White',
+            'Mike White',
+        ]
+    },
 ]
 
 var correct = 0;
 var timeLeft = 30;
 var total = questionsArr.length;
-var currentQuestion = 0;
 var timerId
 var i = 0
 //  create start quiz button
@@ -92,7 +103,38 @@ function quizGenerate() {
             }, 1000)
         }
     }, 30000);
+}
 
+// erase button and then generate the quiz values
+quizButton.onclick = function eraseButton() {
+    quizGame.removeChild(quizButton);
+    quizGenerate();
+    for (var i = 0; i < questionsArr.length; i++) {
+        var btn = document.getElementsByClassName('btn');
+        for (var btn of btn) {
+            btn.addEventListener('click', function onClick() {
+                i++
+            });
+        }
+
+
+        /* if(onClick() == true || timeLeft == 0) {
+             i++
+         } */
+    }
+
+}
+
+//function for generating the quiz values and accessing the DOM
+function quizGenerate() {
+
+
+    var paragraph = document.createElement('p');
+    quizGame.appendChild(paragraph);
+    paragraph.textContent = questionsArr[i].question;
+    //create div to contain answer buttons
+    var containerDiv = document.createElement('div');
+    quizGame.appendChild(containerDiv);
 
     var answerButton1 = document.createElement('button');
     var answerButton2 = document.createElement('button');
@@ -103,6 +145,9 @@ function quizGenerate() {
     containerDiv.appendChild(answerButton2)
     containerDiv.appendChild(answerButton3)
     containerDiv.appendChild(answerButton4)
+
+
+
 
 
     answerButton1.setAttribute('class', 'btn')
@@ -116,27 +161,17 @@ function quizGenerate() {
 
     answerButton4.setAttribute('class', 'btn')
     answerButton4.textContent = questionsArr[i].options[3]
-}
-// erase button and then generate the quiz values
-quizButton.onclick = function eraseButton() {
-    quizGame.removeChild(quizButton);
-    
-    quizGenerate();
-    for (var i = 0; i < questionsArr.length; i++) {
-        btnClicked = false;
-        const answerButton = document.querySelectorAll('.btn');
-        answerButton.forEach(function (btn) {
-            btn.addEventListener('click', function () {
-                if (btnClicked || timeLeft == 0) {
-                    i++
-                } btnClicked = true;
-            });
-        });
-        // create timer 
+
+    var timerId = document.createElement('p')
+    quizGame.appendChild(timerId)
+    timerId.textContent = timeLeft
 
 
-    } i++
+
 }
+
+
+
 
 
 
@@ -161,6 +196,4 @@ function previousScore() {
 
 }
 previousScore()
-
-
 
