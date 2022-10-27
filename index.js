@@ -128,7 +128,7 @@ quizButton.onclick = function eraseButton() {
 //function for generating the quiz values and accessing the DOM
 function quizGenerate() {
 
-
+    // create paragraph for question content
     var paragraph = document.createElement('p');
     quizGame.appendChild(paragraph);
     paragraph.textContent = questionsArr[i].question;
@@ -146,10 +146,7 @@ function quizGenerate() {
     containerDiv.appendChild(answerButton3)
     containerDiv.appendChild(answerButton4)
 
-
-
-
-
+    //set answer button classes to all be the same 
     answerButton1.setAttribute('class', 'btn')
     answerButton1.textContent = questionsArr[i].options[0]
 
@@ -162,21 +159,13 @@ function quizGenerate() {
     answerButton4.setAttribute('class', 'btn')
     answerButton4.textContent = questionsArr[i].options[3]
 
+    //create timer p element so the time can be stored and counted down within
     var timerId = document.createElement('p')
     quizGame.appendChild(timerId)
     timerId.textContent = timeLeft
-
-
-
 }
 
-
-
-
-
-
 var finalScore = 100 * (correct / total);
-
 
 //create functions to input into quiz function for if/else statements (one for first page load,
 // other to display previous score)
