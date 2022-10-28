@@ -66,15 +66,50 @@ var questionsArr = [
 ]
 
 var correct = 0;
-var timeLeft = 30;
 var total = questionsArr.length;
 var i = 0;
+var timeLeft = 30;
 
 
 var quizButton = document.querySelector('button');
 quizButton.setAttribute('id', 'start-quiz');
+quizButton.setAttribute('class', 'btn')
 var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
+
+var btn = document.getElementsByClassName('btn')
+btn.onclick = function isClicked() {
+    console.log('clicked')
+}
+
+quizButton.onclick = function eraseButton() {
+    quizGame.removeChild(quizButton);
+}
+
+function startQuiz() {
+    for (i = 0; i < questionsArr; i++) {
+        if ((isClicked()) || (timeLeft = 0)) {
+            i++;
+        } else { 
+            startTimer()
+            quizGenerate()
+        }
+    }
+
+}
+
+function startTimer() {
+    var timerId = setInterval(function() {
+        if (timeLeft > 0) {
+            timerId.textContent = timeLeft - 1
+        } else {
+            timerId.textContent = ""
+            clearInterval(timerId)
+            setTimeout(function() {
+            }, 1000)
+        }
+    }, 30000);
+} 
 
 function quizGenerate() {
     // create paragraph for question content
@@ -90,63 +125,30 @@ function quizGenerate() {
     var answerButton3 = document.createElement('button');
     var answerButton4 = document.createElement('button');
 
-    containerDiv.appendChild(answerButton1)
-    containerDiv.appendChild(answerButton2)
-    containerDiv.appendChild(answerButton3)
-    containerDiv.appendChild(answerButton4)
+    containerDiv.appendChild(answerButton1);
+    containerDiv.appendChild(answerButton2);
+    containerDiv.appendChild(answerButton3);
+    containerDiv.appendChild(answerButton4);
 
     //set answer button classes to all be the same 
-    answerButton1.setAttribute('class', 'btn')
-    answerButton1.textContent = questionsArr[i].options[0]
+    answerButton1.setAttribute('class', 'btn');
+    answerButton1.textContent = questionsArr[i].options[0];
 
-    answerButton2.setAttribute('class', 'btn')
-    answerButton2.textContent = questionsArr[i].options[1]
+    answerButton2.setAttribute('class', 'btn');
+    answerButton2.textContent = questionsArr[i].options[1];
 
-    answerButton3.setAttribute('class', 'btn')
-    answerButton3.textContent = questionsArr[i].options[2]
+    answerButton3.setAttribute('class', 'btn');
+    answerButton3.textContent = questionsArr[i].options[2];
 
-    answerButton4.setAttribute('class', 'btn')
-    answerButton4.textContent = questionsArr[i].options[3]
+    answerButton4.setAttribute('class', 'btn');
+    answerButton4.textContent = questionsArr[i].options[3];
 
-    var timerId = document.createElement('p')
-    quizGame.appendChild(timerId)
-    timerId.textContent = timeLeft
-
-}
-
-
-function startTimer() {
-    var timerId = setInterval(function () {
-        var timeLeft = Number(timerId.textContent)
-        if (timeLeft > 0) {
-            timerId.textContent = timeLeft - 1
-        } else {
-            clearInterval(timerId)
-            setTimeout(function () {
-            }, 30000)
-        }
-    }, 1000);
-} startTimer()
-
-var btn = document.getElementsByClassName('btn')
-btn.onclick = function isClicked() {
-    console.log('clicked')
-}
-
-function startQuiz() {
-    quizGenerate()
-    startTimer()
-    for (i = 0; i < questionsArr; i++) {
-        if ((btn.isClicked()) || (timeLeft = 0)) {
-            i++;
-        } 
-    }
+    var timerId = document.createElement('p');
+    quizGame.appendChild(timerId);
+    timerId.textContent = timeLeft;
 
 }
-quizButton.onclick = function eraseButton() {
-    quizGame.removeChild(quizButton);
-    startQuiz()
-}
+
 
 var finalScore = 100 * (correct / total);
 
