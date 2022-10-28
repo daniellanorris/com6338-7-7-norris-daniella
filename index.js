@@ -1,5 +1,6 @@
 //create questionsArr variable to store questions in, needs to contain at least
 // 5 question objects, options need to contain at least 2 choices
+
 var questionsArr = [
     {
         question: 'Who is the author of Wuthering Heights?',
@@ -67,18 +68,17 @@ var questionsArr = [
 var correct = 0;
 var timeLeft = 30;
 var total = questionsArr.length;
-var i = 0
+var i = 0;
 
 //  create start quiz button
 // on page load, display start quiz button (id user has never played game before)
 //call #start-quiz id to start, identified in variables
 var quizButton = document.querySelector('button');
 quizButton.setAttribute('id', 'start-quiz');
+quizButton.setAttribute('class', 'btn')
 var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
 
-
-//function for generating the quiz values and accessing the DOM
 function quizGenerate() {
     // create paragraph for question content
     var paragraph = document.createElement('p');
@@ -111,10 +111,14 @@ function quizGenerate() {
     answerButton4.setAttribute('class', 'btn')
     answerButton4.textContent = questionsArr[i].options[3]
 
-    //create timer p element so the time can be stored and counted down within
     var timerId = document.createElement('p')
     quizGame.appendChild(timerId)
     timerId.textContent = timeLeft
+
+}
+
+
+function startTimer() {
     var timerId = setInterval(function () {
         var timeLeft = Number(timerId.textContent)
         if (timeLeft > 0) {
@@ -122,33 +126,36 @@ function quizGenerate() {
         } else {
             clearInterval(timerId)
             setTimeout(function () {
-            }, 1000)
+            }, 30000)
         }
-    }, 30000);
-1
+    }, 1000);
+} 
+
+var btn = document.getElementsByClassName('btn')
+btn.onclick = function isClicked(){
+    console.log('clicked')
 }
 
-
-
-// erase button and then generate the quiz values
+function startQuiz() {
+quizGenerate()
+for(i = 0; i < questionsArr; i++) {
+    if ((isClicked()) || (timeLeft = 0)) {
+        i++;
+        console.log('click')
+    } 
+}
+}
 quizButton.onclick = function eraseButton() {
     quizGame.removeChild(quizButton);
-    quizGenerate()
-    for (var i = 0; i < questionsArr.length; i++) {
-        var btn = document.getElementsByClassName('btn');
-        for (var btn of btn) {
-            btn.addEventListener('click', function onClick() {
-                console.log('click')
-            });
-        }
-        if (btn.clicked == true || timeLeft == 0) {
-            console.log('done')
-            i++
+    startQuiz()
+    } 
 
-        } 
-    }
+//function for generating the quiz values and accessing the DOM
 
-}
+
+
+
+
 
 var finalScore = 100 * (correct / total);
 
@@ -167,7 +174,6 @@ function previousScore() {
         paragraph.textContent = 'finalScore'
         //show previous score and display the start button
     }
-
 }
-previousScore()
 
+previousScore()
