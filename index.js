@@ -70,12 +70,9 @@ var timeLeft = 30;
 var total = questionsArr.length;
 var i = 0;
 
-//  create start quiz button
-// on page load, display start quiz button (id user has never played game before)
-//call #start-quiz id to start, identified in variables
+
 var quizButton = document.querySelector('button');
 quizButton.setAttribute('id', 'start-quiz');
-quizButton.setAttribute('class', 'btn')
 var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
 
@@ -129,39 +126,34 @@ function startTimer() {
             }, 30000)
         }
     }, 1000);
-} 
+} startTimer()
 
 var btn = document.getElementsByClassName('btn')
-btn.onclick = function isClicked(){
+btn.onclick = function isClicked() {
     console.log('clicked')
 }
 
 function startQuiz() {
-quizGenerate()
-for(i = 0; i < questionsArr; i++) {
-    if ((isClicked()) || (timeLeft = 0)) {
-        i++;
-        console.log('click')
-    } 
-}
+    quizGenerate()
+    startTimer()
+    for (i = 0; i < questionsArr; i++) {
+        if ((btn.isClicked()) || (timeLeft = 0)) {
+            i++;
+        } 
+    }
+
 }
 quizButton.onclick = function eraseButton() {
     quizGame.removeChild(quizButton);
     startQuiz()
-    } 
-
-//function for generating the quiz values and accessing the DOM
-
-
-
-
-
+}
 
 var finalScore = 100 * (correct / total);
 
 //create functions to input into quiz function for if/else statements (one for first page load,
 // other to display previous score)
-function firstLoading() {
+
+/*function firstLoading() {
     if (localStorage.getItem('finalScore') === false) {//display the start button, and on button click you can start the quiz
         quizGenerate();
     }
@@ -176,4 +168,4 @@ function previousScore() {
     }
 }
 
-previousScore()
+previousScore()*/
