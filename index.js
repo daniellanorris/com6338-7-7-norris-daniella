@@ -78,38 +78,38 @@ var quizGame = document.getElementById('quiz')
 quizGame.appendChild(quizButton);
 
 var btn = document.getElementsByClassName('btn')
+
 btn.onclick = function isClicked() {
     console.log('clicked')
 }
 
 quizButton.onclick = function eraseButton() {
     quizGame.removeChild(quizButton);
+    startTimer();
+    startQuiz()
 }
 
 function startQuiz() {
     for (i = 0; i < questionsArr; i++) {
-        if ((isClicked()) || (timeLeft = 0)) {
+        if ((btn.isClicked()) || (timeLeft = 0)) {
             i++;
-        } else { 
-            startTimer()
-            quizGenerate()
-        }
+        } 
     }
 
 }
 
 function startTimer() {
-    var timerId = setInterval(function() {
+    var timerId = setInterval(function () {
         if (timeLeft > 0) {
             timerId.textContent = timeLeft - 1
         } else {
             timerId.textContent = ""
             clearInterval(timerId)
-            setTimeout(function() {
+            setTimeout(function () {
             }, 1000)
         }
     }, 30000);
-} 
+}
 
 function quizGenerate() {
     // create paragraph for question content
